@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+* {
+  margin:0;
+  padding:0;
+  font-family: "Montserrat";
+}
+
+body {
+  background-image: url("../img/oldasspeeps.jpg");
+  background-size:cover;
+}
+
+h1 {
+  text-align:center;
+  color:white;
+  font-size:3em;
+  font-weight:900;
+  margin-bottom:25px;
+}
+
+#center {
+  position:fixed;
+  width:1000px;
+  top:30%;
+  left:50%;
+  margin-left:-500px;
+  text-align:center;
+}
+
+.button {
+  margin:0px 4px 0px 4px;
+  padding: 4px 15px 4px 15px;
+  background-color:#009AED;
+  font-size:1em;
+  color:white;
+  font-weight:100;
+  border:2px solid #009AED;
+  border-radius:2px;
+  text-decoration:none;
+  transition-duration:0.3s;
+}
+
+.button:hover {
+  background:none;
+  color:#009AED;
+  transition-duration:0.3s;
+}

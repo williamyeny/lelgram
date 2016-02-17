@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}SICK GRAM{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gram.css') }}">
+<style>
+  body {background-image:url("{{ i }}");}
+</style>
+<script>
+  //http://stackoverflow.com/questions/28018792/how-to-get-youtube-video-title-with-v3-url-api-in-javascript-w-ajax-json
+  $.ajax({
+    url: "https://www.googleapis.com/youtube/v3/videos?id={{ a }}&key=AIzaSyBpJt-KxWzoizWI22ZwNpvAr5XsEm8imBg&fields=items(snippet(title))&part=snippet", 
+    dataType: "jsonp",
+    success: function(data){
+      $("#video-title").append(data.items[0].snippet.title);           
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert (textStatus, + ' | ' + errorThrown);
+    }
+  });
+</script>
+{% endblock %}
+{% block body %}
+<div id="t">
+  <h1>{{ t }}</h1>
+</div>
+<a class="button" id="create" href="/create">Create one!</a>
+<iframe width="0" height="0" src="https://www.youtube.com/embed/{{ a }}?autoplay=1&loop=1&&playlist={{ a }}" frameborder="0" allowfullscreen></iframe>
+<a id="video-title" href="http://youtu.be/{{ a }}">Song: </a>
+
+{% endblock %}

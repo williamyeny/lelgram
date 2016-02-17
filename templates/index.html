@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<script>
+  $(document).ready(function() {
+    $('#contact').click(function() {
+      $(this).html('williamyeny@gmail.com');
+    })
+  });
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="center">
+  <h1> Make crappy meme things! </h1>
+  <a class="button" id="create" href="/create">Create one!</a>
+  <a class="button" id="contact" href="#">Contact!</a>
+  <a class="button" id="donate" href="http://steamcommunity.com/tradeoffer/new/?partner=89903082&token=Jiy-jJ2l">Donate</a>
+</div>
+{% endblock %}

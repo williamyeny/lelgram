@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Create something horrible{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+<script>
+  $(document).ready(function() {
+//     var valid = false;
+    $(document).click(function(e) { 
+      if (e.target.nodeName  == ('HTML')) {
+        $("#tip").css('opacity', "0");
+      }
+      
+    });
+    $("input").focus(function() {
+      if ($(this).css('border-bottom-color','#cc0000')) {$(this).css('border-bottom-color','');}
+      if ($(this).attr("name") == "text") {$('#tip').html('What\'s your message?');}
+      if ($(this).attr("name") == "audio") {$('#tip').html('Paste a YouTube link to an audio track!');}
+      if ($(this).attr("name") == "image") {$('#tip').html('Paste a link to an online image!');}
+      $("#tip").css('opacity', "1");
+      $("#tip").css('right', $(this).width() + $(this).offset().left + 20);
+      $("#tip").css('top', $(this).offset().top + 2);
+
+    });
+    
+    $('#f').submit(function(e) {
+//       if (!valid) {
+//         if(!validate()) {e.preventDefault();}
+//       }
+      if(!validate()) {e.preventDefault();}
+    });
+    
+    $("#submit").click(function(e) {
+      e.preventDefault();
+      if (validate()) {$("#f").submit();}
+    });
+    function validate() {
+      if ($("input[name='text']").val().length < 160) {
+        if ($("input[name='audio']").val().length < 50) {
+          if ($("input[name='image']").val().length < 200) {
+//               //http://stackoverflow.com/questions/28018792/how-to-get-youtube-video-title-with-v3-url-api-in-javascript-w-ajax-json
+//             var valid = false;
+//             $.ajax({
+//               url: "https://www.googleapis.com/youtube/v3/videos?id=" + $("input[name='audio']").val().substr($("input[name='audio']").val().length - 11) +"&key=AIzaSyBpJt-KxWzoizWI22ZwNpvAr5XsEm8imBg&fields=items(snippet(title))&part=snippet", 
+//               dataType: "jsonp",
+              
+//               success: function(data){
+//                 if (data.items.length > 0) {
+//                   console.log('valid link');
+//                   valid = true;
+//                   $('#f').submit();
+//                 } else {
+//                   console.log('invalid link');
+//                   $('#error').html('Invalid YouTube link');
+//                 }
+//               },                
+//               error: function(jqXHR, textStatus, errorThrown) {
+//                 alert (textStatus, + ' | ' + errorThrown);
+//               }
+//             });
+            return true;
+          } else {
+            $("input[name='image']").css('border-bottom-color','#cc0000');
+            $('#error').html('Too many characters');
+          }
+        } else {
+          $("input[name='audio']").css('border-bottom-color','#cc0000');
+          $('#error').html('Too many characters');
+        }
+      } else {
+        $("input[name='text']").css('border-bottom-color','#cc0000');
+        $('#error').html('Too many characters');
+      }
+      $('#error').css('animation','dropDown 5s');
+      return false;
+    }
+  });
+</script>
+{% endblock %}
+{% block body %}
+<form id="f" action="/generate" method="POST">
+  <input type="text" name="text" placeholder="Text"><br>
+  <input type="text" name="audio" placeholder="Audio"><br>
+  <input type="text" name="image" placeholder="Background image"><br>
+  <a href="#" class="button" id="submit">Submit</a>
+  <input type="submit" style="visiblity:hidden;opacity:0;display:none;position:absolute">
+</form>
+<p id="error">Too many characters, man</p>
+<div id="tip">test1234</div>
+{% endblock %}
